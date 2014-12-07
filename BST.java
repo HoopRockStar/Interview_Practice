@@ -232,12 +232,36 @@ public class BST {
 	*/
 	
 	public BST buildTreeFromPreIn(int[] preOrder, int[] inOrder, int size) {
-		Node n = buildTreeFromPreIn(new Node(0), preOrder, inOrder, size);
+		Node n = buildTreeFromPreIn(new Node(0), preOrder, inOrder, 0, size-1, 0, size-1);
 		return new BST(n);
 	
 	}
 	
-	private Node buildTreeFromPreIn(Node n, int[] preOrder, int[] inOrder, int size) {
+	private Node buildTreeFromPreIn(Node n, int[] preOrder, int[] inOrder, int pre_start, int pre_end, int in_start, int in_end) {
+		
+		if (pre_start > pre_end || in_start > in_end)
+			return null;
+			
+		int rootNode = preOrder[pre_start];
+		n = new Node(rootNode);
+		int offset = 0;
+		for (int i = 0; i < inOrder.length; i++) {
+			offset++;
+			if (inOrder[i] == rootNode) {
+				break;
+			}
+		}
+		
+		int length = offset-in_start;
+	
+		n.left = buildTreeFromPreIn(n.left, preOrder, inOrder, pre_start+1, pre_start+length, in_start, offset-1);
+		n.right = buildTreeFromPreIn(n.right, preOrder, inOrder, pre_start+length+1, pre_end, offset+1, in_end);
+		
+		return n;
+	
+	}
+	
+	/*private Node buildTreeFromPreIn(Node n, int[] preOrder, int[] inOrder, int size) {
 		if (size == 0)
 			return null;
 		
@@ -263,7 +287,7 @@ public class BST {
 		
 		return n;
 	
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		BST bst = new BST();
