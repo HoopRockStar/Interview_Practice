@@ -7,6 +7,8 @@
 * gHappy("xxggyygxx") → false
 */
 
+public class Strings_Recursion_Other {
+
 public boolean gHappy(String str) {
   int counter = 0;
   char c = 0;
@@ -56,5 +58,42 @@ public int count8(int n, boolean last_digit) {
   } else {
     return 0 + count8(n/10, false);
   }
+
+}
+
+public int longestSubsequence(int[] arr) {
+   int[] subsequences = new int[arr.length];
+   
+   for (int i =0; i < subsequences.length; i++) {
+   		subsequences[i] = 1;
+   }
+   int curr_value;
+   
+   for (int i =0; i < arr.length-1; i++) {
+   		curr_value = arr[i];
+   		for (int j=i+1; j< arr.length; j++) {
+   			if (curr_value < arr[j]) {
+   			   subsequences[i] = subsequences[i]+1;
+   			   curr_value =  arr[j];
+   			}
+   		}
+   }
+   
+   int max = 0;
+   for (int i = 0; i < subsequences.length; i++) {
+   		if (max < subsequences[i])
+   		    max = subsequences[i];
+   }
+   
+   return max;
+
+}
+
+public static void main(String[] args) {
+	Strings_Recursion_Other s = new Strings_Recursion_Other();
+	int[] arr = {10, 22, 9, 33, 21, 50, 41, 60, 80};
+	System.out.println(s.longestSubsequence(arr));
+
+}
 
 }
