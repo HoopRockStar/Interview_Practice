@@ -223,7 +223,17 @@ public class BST {
 	*/
 	
 	public boolean isBST() {
-		return true;
+		return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+	
+	private boolean isBST(Node n, int max, int min) {
+	   if (n==null)
+	     return true;
+	   if (n.data < max && n.data > min) {
+	     return isBST(n.left, n.data, min) && isBST(n.right, max, n.data);
+	   }
+	   return false;
+	
 	}
 	
 	/*
