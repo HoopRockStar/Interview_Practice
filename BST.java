@@ -219,7 +219,7 @@ public class BST {
 	}
 	
 	/*
-	* Determines whether the tree is a valid BST
+	* Determines whether a binary tree is a valid BST
 	*/
 	
 	public boolean isBST() {
@@ -234,6 +234,50 @@ public class BST {
 	   }
 	   return false;
 	
+	}
+	
+	/*
+	* Returns true if the heights of any two subtrees never differ by more than one
+	*/
+	
+	public boolean isBalanced() {
+	   if (checkHeight(root)==-1)
+	   		return false;
+	   	else
+	   		return true;
+	}
+	
+	private boolean isBalanced(Node n) {
+	    if (n==null)
+	    	return true;
+	    if (maxDepth(n.left)!=maxDepth(n.right))
+	    	return false;
+	    else
+	    	return isBalanced(n.left) && isBalanced(n.right);
+
+	    
+	}
+	
+	/*
+	* More efficient than isBalanced(Node n)
+	* Checks for balanced tree as calculating the height
+	*/
+	
+	private int getHeight(Node n) {
+		if (n==null)
+			return 0;
+		int heightLeft = getHeight(n.left);
+		if (heightLeft==-1)
+			return -1;
+		
+		int heightRight = getHeight(n.right);
+		if (heightRight==-1) 
+			return -1;
+		
+		if(Math.abs(heightRight-heightLeft) > 1)
+			return -1;
+		else
+			return 1+Math.max(getHeight(n.left), getHeight(n.right));
 	}
 	
 	/*
