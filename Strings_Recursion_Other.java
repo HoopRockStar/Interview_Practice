@@ -1,4 +1,16 @@
 /*
+* Given base and n that are both 1 or more, compute recursively (no loops) 
+* the value of base to the n power, so powerN(3, 2) is 9 (3 squared). 
+*/
+
+public int powerN(int base, int n) {
+  if (n==1)
+     return base;
+  return base * powerN(base, n-1);
+}
+
+
+/*
 * We'll say that a lowercase 'g' in a string is "happy" if there is another 'g' immediately to its left or right. 
 * Return true if all the g's in the given string are happy.
 *
